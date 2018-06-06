@@ -8,7 +8,7 @@
   <meta name="description" content="Scripture reading of the day.">
   <meta name="keywords" content="bible, scripture, daily, bread">
   <meta name="robots" content="all">
-  <link rel="stylesheet" type="text/css" href="/static/css/main.css">
+  <link rel="stylesheet" type="text/css" href="/static/css/main.min.css">
 </head>
 <body>
   <div id="wrapper">
