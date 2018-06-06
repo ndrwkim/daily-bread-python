@@ -101,4 +101,4 @@ def server_static(filepath):
 
 
 if __name__ == '__main__':
-    run(reloader=True)
+    run()
