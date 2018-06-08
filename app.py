@@ -27,7 +27,11 @@ def _get_all_books_w_chaps():
     """
     url = (f'https://bibles.org/v2/versions/{BIBLE_VERSION}/books.js'
            f'?include_chapters=true')
-    return requests.get(url, auth=(BIBLESEARCH_API_KEY, '')).json()
+    return requests.get(
+        url,
+        auth=(BIBLESEARCH_API_KEY, ''),
+        verify=False
+    ).json()
 
 
 def _get_random_book(resp):
@@ -67,7 +71,11 @@ def _get_bible_text(book_abbr, chap):
     """
     url = (f'https://bibles.org/v2/passages.js'
            f'?q[]={book_abbr}+{chap}&version={BIBLE_VERSION}')
-    resp = requests.get(url, auth=(BIBLESEARCH_API_KEY, '')).json()
+    resp = requests.get(
+        url,
+        auth=(BIBLESEARCH_API_KEY, ''),
+        verify=False
+    ).json()
     return '\n'.join([
         resp['response']['search']['result']['passages'][0]['text'],
         resp['response']['meta']['fums']
@@ -101,4 +109,4 @@ def server_static(filepath):
 
 
 if __name__ == '__main__':
-    run()
+    run(host='127.0.0.1', port=8081)
