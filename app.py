@@ -27,7 +27,7 @@ def _get_all_books_w_chaps():
 
     """
     url = os.path.join(
-        'BASE_URL', f'versions/{BIBLE_VERSION}/books.js?include_chapters=true')
+        BASE_URL, f'versions/{BIBLE_VERSION}/books.js?include_chapters=true')
     return requests.get(
         url,
         auth=(BIBLESEARCH_API_KEY, ''),
