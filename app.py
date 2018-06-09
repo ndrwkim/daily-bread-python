@@ -14,6 +14,7 @@ from config import BIBLESEARCH_API_KEY
 __all__ = ['index', 'server_static']
 
 BASE_PATH = os.path.abspath(os.path.dirname(__file__))
+BASE_URL = 'http://bibles.org/v2/'
 BIBLE_VERSION = 'eng-KJV'
 TEMPLATE_PATH.insert(0, os.path.join(BASE_PATH, 'templates'))
 
@@ -25,8 +26,8 @@ def _get_all_books_w_chaps():
     :rtype: dict[str, str]
 
     """
-    url = (f'https://bibles.org/v2/versions/{BIBLE_VERSION}/books.js'
-           f'?include_chapters=true')
+    url = os.path.join(
+        'BASE_URL', f'versions/{BIBLE_VERSION}/books.js?include_chapters=true')
     return requests.get(
         url,
         auth=(BIBLESEARCH_API_KEY, ''),
@@ -69,16 +70,18 @@ def _get_bible_text(book_abbr, chap):
     :rtype: str
 
     """
-    url = (f'https://bibles.org/v2/passages.js'
-           f'?q[]={book_abbr}+{chap}&version={BIBLE_VERSION}')
+    url = os.path.join(
+        BASE_URL,
+        f'passages.js?q[]={book_abbr}+{chap}&version={BIBLE_VERSION}'
+    )
     resp = requests.get(
         url,
         auth=(BIBLESEARCH_API_KEY, ''),
         verify=False
-    ).json()
+    ).json()['response']
     return '\n'.join([
-        resp['response']['search']['result']['passages'][0]['text'],
-        resp['response']['meta']['fums']
+        resp['search']['result']['passages'][0]['text'],
+        resp['meta']['fums']
     ])
 
 
